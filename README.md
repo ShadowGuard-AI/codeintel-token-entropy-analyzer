@@ -1,3 +1,5 @@
+![Banner](banner.png)
+
 # codeintel-Token-Entropy-Analyzer
 Calculates the entropy of tokens (API keys, passwords, secrets) in code and configuration files. High entropy tokens are statistically less predictable and potentially more secure (but still shouldn't be hardcoded). - Focused on Tools for static code analysis, vulnerability scanning, and code quality assurance
 
