@@ -24,7 +24,7 @@ def setup_argparse():
         "--regex",
         type=str,
         default=r"[A-Za-z0-9_\-]+",
-        help="Regex to define tokens (default: [A-Za-z0-9_\-]+).  Be careful with special regex characters.",
+        help=r"Regex to define tokens (default: [A-Za-z0-9_\-]+).  Be careful with special regex characters.",
     )
     parser.add_argument(
         "--entropy_threshold",
@@ -68,8 +68,17 @@ def analyze_file(filepath, min_length, regex, entropy_threshold):
         with open(filepath, 'r') as f:
             content = f.read()
 
-        # Find all tokens that match the regex
-        tokens = re.findall(regex, content)
+        try:
+            token_pattern = re.compile(regex)
+        except re.error as e:
+            logging.error(f"Invalid token regex {regex!r}: {e}")
+            sys.exit(1)
+
+        # finditer with group(0), not findall: when a user regex has
+        # capture groups, findall returns tuples of the groups, and
+        # the length test below then measured the tuple instead of
+        # the token, so every token silently dropped out.
+        tokens = [match.group(0) for match in token_pattern.finditer(content)]
 
         for token in tokens:
             if len(token) >= min_length:
@@ -134,9 +143,3 @@ if __name__ == "__main__":
 # 4. Analyze a file with a different entropy threshold:
 #    python main.py example.txt --entropy_threshold 4.0
 #
-# Offensive Tool Considerations:
-# - Integrate with other security tools for automated vulnerability scanning.
-# - Expand regex to include common API key patterns and secret formats.
-# - Implement rules to ignore known false positives (e.g., common variable names).
-# - Add support for analyzing entire directory structures.
-# - Consider adding options to redact or obfuscate identified secrets in output for security.
