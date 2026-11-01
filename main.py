@@ -47,6 +47,9 @@ def calculate_entropy(token):
     if not token:
         return 0.0
 
+    # I count each distinct character once, in first seen order.
+    # The entropy that comes out depends only on how the counts
+    # split, not on the order characters appear in the token.
     probability = [float(token.count(c)) / len(token) for c in dict.fromkeys(list(token))]
     entropy = -sum([p * math.log(p, 2.0) for p in probability])
     return entropy
@@ -85,8 +88,14 @@ def analyze_file(filepath, min_length, regex, entropy_threshold):
                 entropy = calculate_entropy(token)
                 logging.debug(f"Token: {token}, Entropy: {entropy}")
                 if entropy >= entropy_threshold:
+                    # I print the token itself. That is the point of the flag for a
+                    # human reader, and it means a captured log from this tool has
+                    # to be handled like the secrets it went looking for.
                     print(f"Potential secret found in {filepath}: Token: {token}, Entropy: {entropy}")
                 elif entropy > 0:
+                    # I log every token over the length floor, flagged or not, with
+                    # its value. A long file produces a log as long as its token
+                    # list, which is why the debug line above it is not the gate.
                     logging.info(f"Token found in {filepath}: Token: {token}, Entropy: {entropy}")
     except FileNotFoundError:
         logging.error(f"File not found: {filepath}")
