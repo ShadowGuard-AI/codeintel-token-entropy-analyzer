@@ -1,166 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Codeintel Token Entropy Analyzer: what it is, how it runs, where it stops</title>
-<meta name="description" content="Codeintel Token Entropy Analyzer is one of my projects. The README in the repo is short, so this page sticks to what the files themselves show.">
-<style>
-:root {
-  --bg: #101214; --panel: #1c1f22; --ink: #eee8dc;
-  --mut: #25292d;
-  --acc: #e8b339; --acc2: #c75432;
-  --line: #1c1f22;
-}
-* { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--ink);
-  font-family: 'Trebuchet MS', sans-serif; line-height: 1.55; }
-code, pre, .mono { font-family: 'Courier New', monospace; }
-a { color: var(--acc2); }
-.hero { padding: 3rem 6vw 1rem; }
-.hero img.banner { width: 100%; height: auto; border: 1px solid var(--line);
-  border-radius: 10px; }
-.logo { width: 92px; height: 92px; border-radius: 18px;
-  border: 1px solid var(--line); }
-h1 { font-size: 2.4rem; margin: 0.4em 0 0.1em; }
-h2 { border-bottom: 2px solid var(--acc); padding-bottom: 0.2em;
-  margin-top: 2em; }
-.lede { font-size: 1.15rem; max-width: 62ch; }
-main { padding: 0 6vw 3rem; max-width: 1180px; margin: 0 auto; }
-.grid { display: grid; gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
-.card { background: var(--panel); border: 1px solid var(--line);
-  border-radius: 12px; padding: 1rem 1.2rem; }
-.card.pop { animation: rise 0.7s ease both; }
-@keyframes rise { from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: none; } }
-pre.code { background: #101014; color: #e8e6df; padding: 1rem 1.2rem;
-  border-radius: 12px; overflow-x: auto; font-size: 0.86rem;
-  border-left: 5px solid var(--acc); }
-table { border-collapse: collapse; width: 100%; }
-td, th { border-bottom: 1px solid var(--line); padding: 0.45rem 0.6rem;
-  text-align: left; }
-.shots { display: grid; gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-.shots img { width: 100%; height: auto; border: 1px solid var(--line);
-  border-radius: 10px; background: #f4f1e8; }
-footer { padding: 2rem 6vw; border-top: 1px solid var(--line);
-  color: var(--mut); }
-.rail { display: flex; gap: 1.2rem; align-items: flex-start; }
-.rail nav { position: sticky; top: 1rem; min-width: 180px; }
-@media (max-width: 760px) { .rail { flex-direction: column; }
-  .rail nav { position: static; } }
-@media (prefers-reduced-motion: reduce) {
-  .card.pop { animation: none; } * { scroll-behavior: auto; } }
-</style>
+<title>codeintel-token-entropy-analyzer: The Glow Worm Bank of June</title>
+<style>@font-face{font-family:'Beth Ellen';src:url('fonts/BethEllen.ttf') format('truetype');}@font-face{font-family:'Alegreya Sans';src:url('fonts/AlegreyaSans.ttf') format('truetype');}
+:root{--ground:#f7f1dc;--panel:#dce8cc;--head:#1a1a14;--ink:#22221c;--red:#b2221c;--green:#4a7c34}
+*{box-sizing:border-box}body{margin:0;background:var(--ground);color:var(--ink);font-family:'Alegreya Sans',sans-serif;line-height:1.65}
+h1,h2,h3{font-family:'Beth Ellen',cursive;color:var(--head)}
+.hero img.heroimg{width:100%;height:52vh;object-fit:cover;display:block}
+.hero .in,main,footer{max-width:1120px;margin:0 auto;padding:1rem 6vw 2rem}.logo{width:210px}
+nav{display:flex;gap:1rem;flex-wrap:wrap;margin:1.2rem 0}
+.btn{display:inline-block;text-decoration:none;font-family:'Beth Ellen',cursive;color:var(--head);background:linear-gradient(90deg,var(--red) 0 14px,var(--green) 14px);border:2px solid #9db98a;border-radius:20px;padding:.75rem 1.2rem .75rem 1.6rem}
+.btn:hover{filter:brightness(1.06)}.btn:active{filter:brightness(1.18)}.btn:focus-visible{outline:3px double var(--head);outline-offset:3px}
+a{color:var(--green)}.panel{background:var(--panel);color:var(--ink);padding:.4rem 1.5rem 1.3rem;margin:1.8rem 0}
+pre{background:#22221c;color:#f4f2ea;padding:1rem;overflow-x:auto;white-space:pre-wrap}
+.note{background:#f7f1dc;color:#1a1a14;padding:.6rem 1rem;margin:1rem 0;border-left:5px solid var(--green)}
+.flagged{color:var(--red);font-weight:700}</style>
 </head>
-<body class="layout-grid">
-<!-- This page exists for codeintel-token-entropy-analyzer alone: the layout (console-grid),
-     the colors, and the type were picked for this project, not
-     shared with the other project pages. The code block below is
-     copied from the file it names, line for line. If it looks
-     plain, that is because the project is plain, and I would
-     rather the page match the project than dress it up. The one
-     thing I will not do here is oversell: what this project does
-     not do is stated on the page, not hidden from it. -->
-<header class="hero">
-  <img class="logo" src="assets/logo.png" alt="Codeintel Token Entropy Analyzer logo">
-  <img class="banner" src="assets/banner.png" alt="">
-  <h1>Codeintel Token Entropy Analyzer</h1>
-  <p class="mono"><a href="https://github.com/ShadowGuard-AI/codeintel-token-entropy-analyzer">github.com/ShadowGuard-AI/codeintel-token-entropy-analyzer</a></p>
-</header>
+<body>
 
+<header class="hero"><img class="heroimg" src="intro-banner.png" alt="The bank at dusk: one glow worm close in front with her light on, more lights between the stems behind, hedge at the top, dew beads near each animal, the field sign turned away with its blank back to the viewer">
+<div class="in"><img class="logo" src="logo.png" alt="One female glow worm on one grass stem, segmented and dark with her last segments lit green yellow, one red touch at the tip of the stem, the name lettered below in field guide style">
+<h1>codeintel-token-entropy-analyzer</h1>
+<p>A field guide account of one night survey. Ladybird red marks a flagged token line and nothing else.</p>
+<nav>
+<a class="btn" href="#usage">Analyse One File</a><a class="btn" href="#params">Set the Minimum Length</a><a class="btn" href="#params">Set the Token Pattern</a><a class="btn" href="#params">Set the Entropy Threshold</a><a class="btn" href="#params">Show Help</a>
+</nav></div></header>
 <main>
-  <section class="rail">
-    <nav aria-label="on this page">
-      <p class="mono"><a href="#run">Run it</a><br>
-      <a href="#files">The files</a><br>
-      <a href="#sheets">The sheets</a><br>
-      <a href="https://github.com/ShadowGuard-AI/codeintel-token-entropy-analyzer">The repo</a></p>
-    </nav>
-    <div>
-      <p class="lede">Codeintel Token Entropy Analyzer is one of my projects. The README in the repo is short, so this page sticks to what the files themselves show.</p>
-      <div class="grid">
-        <div class="card pop"><h3>What it is</h3>
-          <p>Codeintel Token Entropy Analyzer: 5 files, 167 counted
-          lines across Python 145, Markdown 19, Text 3. One job, done in the
-          open, in files you can read.</p></div>
-        <div class="card pop"><h3>The biggest piece</h3>
-          <p><code>main.py</code> carries the most
-          lines. If the project grows, that file is where the growth
-          lands first, for better or worse.</p></div>
-        <div class="card pop"><h3>The honest gap</h3>
-          <p>No test files yet. That is the honest gap, and the roadmap in the visuals folder says what the first one should cover.</p></div>
-      </div>
-      <section id="run">
-        <h2>Run it</h2>
-        <p>The repo README has the exact commands for this one. The
-        shape is the shape for most of my projects: clone it, read the
-        top file first so you know what will happen, then run it on
-        something you do not mind breaking.</p>
-        <p class="mono">$ git clone https://github.com/ShadowGuard-AI/codeintel-token-entropy-analyzer.git<br>$ cd codeintel-token-entropy-analyzer</p>
-      </section>
-      
-  <section aria-label="real code">
-    <h2>The code, as it sits in the repo</h2>
-    <p>From <code>main.py</code>, line 9 on. I did
-    not tidy it for the page. What you see is what the file has.</p>
-    <pre class="code"><code>logging.basicConfig(level=logging.INFO, format=&#x27;%(asctime)s - %(levelname)s - %(message)s&#x27;)
-
-def setup_argparse():
-    &quot;&quot;&quot;
-    Sets up the argument parser for the command-line interface.
-    &quot;&quot;&quot;
-    parser = argparse.ArgumentParser(description=&quot;Calculate the entropy of tokens in files.&quot;)
-    parser.add_argument(&quot;filepath&quot;, help=&quot;Path to the file to analyze.&quot;)
-    parser.add_argument(
-        &quot;--min_length&quot;,
-        type=int,
-        default=8,
-        help=&quot;Minimum length of tokens to consider (default: 8).&quot;,
-    )
-    parser.add_argument(
-        &quot;--regex&quot;,
-        type=str,
-        default=r&quot;[A-Za-z0-9_\-]+&quot;,
-        help=r&quot;Regex to define tokens (default: [A-Za-z0-9_\-]+).  Be careful with special regex characters.&quot;,
-    )
-    parser.add_argument(
-        &quot;--entropy_threshold&quot;,</code></pre>
-  </section>
-      <section id="files">
-        <h2>The files that matter</h2>
-        <table><tr><th>File</th><th>Lines</th></tr>
-        <tr><td><code>main.py</code></td><td>145</td></tr>
-        <tr><td><code>README.md</code></td><td>19</td></tr>
-        <tr><td><code>requirements.txt</code></td><td>3</td></tr>
-        <tr><td><code>banner.png</code></td><td>0</td></tr>
-        <tr><td><code>logo.png</code></td><td>0</td></tr>
-        </table>
-        <p>Names doing the work: <span class="mono">setup_argparse, calculate_entropy, analyze_file, main</span>.</p>
-      </section>
-      <section id="sheets">
-        <h2>Drawn by hand</h2>
-        <p>I sketch my projects on notebook paper so I have to
-        understand them well enough to draw them. The full set,
-        with the counts and how they were counted, is the
-        <a href="https://github.com/ShadowGuard-AI/codeintel-token-entropy-analyzer/tree/main/codeintel-token-entropy-analyzer-Visuals">codeintel-token-entropy-analyzer-Visuals</a>
-        folder in the repo. Nothing is drawn over the binder holes.
-        That is a rule, not a style.</p>
-        <div class="shots">
-          <img src="assets/architecture.png" alt="Hand drawn architecture sheet for Codeintel Token Entropy Analyzer">
-          <img src="assets/flowchart.png" alt="Hand drawn flowchart sheet for Codeintel Token Entropy Analyzer">
-          <img src="assets/product-map.png" alt="Hand drawn product map sheet for Codeintel Token Entropy Analyzer">
-        </div>
-      </section>
-    </div>
-  </section>
+<section class="panel"><h2>What Counts as a Token</h2>
+<p>The tool calculates the entropy of tokens in code and configuration files. Tokens are named in the README as API keys, passwords, and secrets. High entropy tokens are statistically less predictable and may be more secure in that sense. They still should not be hard coded.</p>
+<p>Method, as the code performs it: the file is read whole. A regular expression finds tokens in the text. Each token at or above the length floor is scored for Shannon entropy. Each token at or above the entropy threshold is printed as a potential secret.</p>
+</section>
+<section class="panel"><h2>Install</h2>
+<pre>git clone https://github.com/ShadowGuard-AI/codeintel-token-entropy-analyzer</pre>
+<p>Repository fact, not a README step: the README gives no later install step, and the code uses only the standard library.</p>
+</section>
+<section class="panel" id="usage"><h2>Usage</h2>
+<pre>python3 main.py FILEPATH [--min_length N] [--regex REGEX] [--entropy_threshold THRESHOLD]</pre>
+<p>A file path must be given. The run does not proceed without one.</p>
+</section>
+<section class="panel" id="params"><h2>Length and Threshold</h2>
+<ul>
+<li><code>-h</code>: shows a help message and exits.</li>
+<li><code>filepath</code>: the path to the file to analyse. Required.</li>
+<li><code>--min_length</code>: minimum length of tokens to consider. Default 8.</li>
+<li><code>--regex</code>: defines the tokens. Default pattern: [A-Za-z0-9_\-]+. Be careful with special regex characters.</li>
+<li><code>--entropy_threshold</code>: entropy threshold to flag tokens. Default 3.0.</li>
+</ul>
+<p>Code facts: the length test is at or above the floor, so a token of exactly the minimum length is considered. The entropy test is at or above the threshold, so a token that scores exactly the threshold is flagged. Token values are found with the full match of the pattern, so a pattern with capture groups still yields whole tokens.</p>
+</section>
+<section class="panel"><h2>Verified Counts From the Bank</h2>
+<p>A token of 20 characters with entropy 4.06 is reported as a potential secret. That run exits 0. A token shorter than --min_length is not reported.</p>
+<div class="note"><h3>A Short Token Is Not Reported</h3><p>Length is tested before entropy. A short token is not scored for the flag, however unusual its characters look.</p></div>
+</section>
+<section class="panel"><h2>Exit Rules, From the Code</h2>
+<p>The README does not list these rules; they are marked here as code facts. A missing file path ends the run at exit 1. A file that cannot be read ends the run at exit 1. A minimum length at or below zero ends the run at exit 1. A negative entropy threshold ends the run at exit 1. An invalid regular expression ends the run at exit 1. A completed scan exits 0. A flagged token does not change that exit value.</p>
+</section>
+<section class="panel"><h2>Handle the Output as Secrets</h2>
+<div class="note"><h3>The Token Itself Is Printed</h3><p>A flagged token is printed with its value in full. Tokens below the flag threshold are still written to the log with their values when their entropy is above zero. Output from this tool holds the values it found, and a saved log from a run is to be handled as material that contains secrets. No token value is printed on this page as an example; none is needed to explain the rule.</p></div>
+<p class="flagged">A flagged token line is the one place ladybird red is spent on this page.</p>
+</section>
+<section class="panel"><h2>Licence</h2>
+<p>The README states See LICENSE. The LICENSE file in the repository carries the MIT License. Both facts are shown. Neither is altered.</p>
+</section>
 </main>
-<footer>
-  <p>Codeintel Token Entropy Analyzer is one of my projects. This page was written
-  from the repo itself on 2026-10-30: the counts are the
-  repo's counts, the code is the repo's code, and the gaps are the
-  repo's gaps.</p>
-</footer>
+<footer><p>The Glow Worm Bank of June. Headings in Beth Ellen, text in Alegreya Sans, both under the SIL Open Font License 1.1.</p></footer>
+
 </body>
 </html>

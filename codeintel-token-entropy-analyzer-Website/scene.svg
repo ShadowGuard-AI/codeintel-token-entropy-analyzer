@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-label="The bank in three bands: hedge and sky still while dusk deepens slowly, glow worm lights coming on one by one and holding steady, a dew bead growing and sliding a short way at the lane edge">
+<rect width="1200" height="420" fill="#46506a"><animate attributeName="fill" values="#5a6480;#3e465e;#3e465e" dur="24s" repeatCount="indefinite"/></rect>
+<rect x="0" y="96" width="1200" height="60" fill="#2c4226"/>
+<rect x="0" y="150" width="1200" height="270" fill="#22341e"/>
+<g stroke="#345e28" stroke-width="3"><line x1="80" y1="420" x2="70" y2="230"/><line x1="160" y1="420" x2="168" y2="250"/><line x1="300" y1="420" x2="292" y2="240"/><line x1="520" y1="420" x2="530" y2="256"/><line x1="760" y1="420" x2="752" y2="238"/><line x1="980" y1="420" x2="990" y2="248"/><line x1="1120" y1="420" x2="1112" y2="236"/></g>
+<g fill="#c4e25c">
+<circle cx="200" cy="300" r="7" opacity="0"><animate attributeName="opacity" values="0;1;1;0.82;1" dur="14s" begin="0s" repeatCount="indefinite"/></circle>
+<circle cx="430" cy="262" r="6" opacity="0"><animate attributeName="opacity" values="0;1;1;0.85;1" dur="14s" begin="2s" repeatCount="indefinite"/></circle>
+<circle cx="660" cy="312" r="7" opacity="0"><animate attributeName="opacity" values="0;1;1;0.8;1" dur="14s" begin="4s" repeatCount="indefinite"/></circle>
+<circle cx="880" cy="272" r="6" opacity="0"><animate attributeName="opacity" values="0;1;1;0.85;1" dur="14s" begin="6s" repeatCount="indefinite"/></circle>
+<circle cx="1060" cy="322" r="7" opacity="0"><animate attributeName="opacity" values="0;1;1;0.82;1" dur="14s" begin="8s" repeatCount="indefinite"/></circle>
+</g>
+<g><line x1="240" y1="420" x2="252" y2="330" stroke="#4a7c34" stroke-width="5"/><circle cx="250" cy="352" r="5" fill="#eef4dc"><animate attributeName="r" values="3;6;6" dur="10s" repeatCount="indefinite"/><animate attributeName="cy" values="352;352;378" dur="10s" repeatCount="indefinite"/></circle></g>
+</svg>
