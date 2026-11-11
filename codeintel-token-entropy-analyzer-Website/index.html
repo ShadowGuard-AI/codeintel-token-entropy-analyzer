@@ -3,69 +3,45 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>codeintel-token-entropy-analyzer: The Glow Worm Bank of June</title>
-<style>@font-face{font-family:'Beth Ellen';src:url('fonts/BethEllen.ttf') format('truetype');}@font-face{font-family:'Alegreya Sans';src:url('fonts/AlegreyaSans.ttf') format('truetype');}
-:root{--ground:#f7f1dc;--panel:#dce8cc;--head:#1a1a14;--ink:#22221c;--red:#b2221c;--green:#4a7c34}
-*{box-sizing:border-box}body{margin:0;background:var(--ground);color:var(--ink);font-family:'Alegreya Sans',sans-serif;line-height:1.65}
-h1,h2,h3{font-family:'Beth Ellen',cursive;color:var(--head)}
+<title>codeintel-token-entropy-analyzer: The Bead Sorting Tray</title>
+<style>@font-face{font-family:'Coiny';src:url('fonts/Coiny.ttf') format('truetype');font-weight:400;font-style:normal;}@font-face{font-family:'Signika Negative';src:url('fonts/SignikaNegative.ttf') format('truetype');font-weight:400;font-style:normal;}
+:root{--ground:#26302a;--panel:#33413a;--head:#f4efe4;--ink:#ece7da;--accent:#e0685f}
+*{box-sizing:border-box}body{margin:0;background:var(--ground);color:var(--ink);font-family:'Signika Negative',sans-serif;line-height:1.65}
+h1,h2,h3{font-family:'Coiny',serif;color:var(--head)}
 .hero img.heroimg{width:100%;height:52vh;object-fit:cover;display:block}
 .hero .in,main,footer{max-width:1120px;margin:0 auto;padding:1rem 6vw 2rem}.logo{width:210px}
 nav{display:flex;gap:1rem;flex-wrap:wrap;margin:1.2rem 0}
-.btn{display:inline-block;text-decoration:none;font-family:'Beth Ellen',cursive;color:var(--head);background:linear-gradient(90deg,var(--red) 0 14px,var(--green) 14px);border:2px solid #9db98a;border-radius:20px;padding:.75rem 1.2rem .75rem 1.6rem}
-.btn:hover{filter:brightness(1.06)}.btn:active{filter:brightness(1.18)}.btn:focus-visible{outline:3px double var(--head);outline-offset:3px}
-a{color:var(--green)}.panel{background:var(--panel);color:var(--ink);padding:.4rem 1.5rem 1.3rem;margin:1.8rem 0}
-pre{background:#22221c;color:#f4f2ea;padding:1rem;overflow-x:auto;white-space:pre-wrap}
-.note{background:#f7f1dc;color:#1a1a14;padding:.6rem 1rem;margin:1rem 0;border-left:5px solid var(--green)}
-.flagged{color:var(--red);font-weight:700}</style>
+.btn{display:inline-block;text-decoration:none;font-family:'Coiny',serif;color:var(--head);background:var(--panel);border:2px solid var(--accent);border-radius:10px;padding:.6rem 1.1rem}
+.btn:hover{border-color:var(--head)}.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+a{color:var(--head)}.panel{background:var(--panel);color:var(--ink);padding:.4rem 1.5rem 1.3rem;margin:1.8rem 0;border-radius:6px}
+pre{background:#1b241e;color:var(--ink);padding:1rem;overflow-x:auto;white-space:pre-wrap}
+.flag{border-left:5px solid var(--accent);background:rgba(0,0,0,.18);padding:.6rem 1rem}
+img.rule{width:100%;height:120px;object-fit:cover;display:block}img.diag{max-width:100%}
+code{font-family:inherit;background:rgba(0,0,0,.25);padding:0 .3rem;border-radius:3px}</style>
 </head>
 <body>
-
-<header class="hero"><img class="heroimg" src="intro-banner.png" alt="The bank at dusk: one glow worm close in front with her light on, more lights between the stems behind, hedge at the top, dew beads near each animal, the field sign turned away with its blank back to the viewer">
-<div class="in"><img class="logo" src="logo.png" alt="One female glow worm on one grass stem, segmented and dark with her last segments lit green yellow, one red touch at the tip of the stem, the name lettered below in field guide style">
+<header class="hero"><img class="heroimg" src="intro-banner.png" alt="Glass beads pouring from a brass scoop into a mixed tray close up, red and cobalt and amber beads mid fall over the scattered colours below, an ordered tray soft at the frame edge">
+<div class="in"><img class="logo" src="logo.png" alt="One shallow oak tray of thoroughly mixed glass beads in red, cobalt, amber and white seen from above, a brass scoop resting at the tray edge">
 <h1>codeintel-token-entropy-analyzer</h1>
-<p>A field guide account of one night survey. Ladybird red marks a flagged token line and nothing else.</p>
-<nav>
-<a class="btn" href="#usage">Analyse One File</a><a class="btn" href="#params">Set the Minimum Length</a><a class="btn" href="#params">Set the Token Pattern</a><a class="btn" href="#params">Set the Entropy Threshold</a><a class="btn" href="#params">Show Help</a>
-</nav></div></header>
+<p>Mixtures laid out in rows, so how mixed a thing is can be judged at a glance.</p>
+<nav><a class="btn" href="#how">How tokens are scored</a><a class="btn" href="#log">The log warning</a><a class="btn" href="#params">Parameters</a><a class="btn" href="#exits">Exit codes</a></nav></div></header>
 <main>
-<section class="panel"><h2>What Counts as a Token</h2>
-<p>The tool calculates the entropy of tokens in code and configuration files. Tokens are named in the README as API keys, passwords, and secrets. High entropy tokens are statistically less predictable and may be more secure in that sense. They still should not be hard coded.</p>
-<p>Method, as the code performs it: the file is read whole. A regular expression finds tokens in the text. Each token at or above the length floor is scored for Shannon entropy. Each token at or above the entropy threshold is printed as a potential secret.</p>
-</section>
-<section class="panel"><h2>Install</h2>
-<pre>git clone https://github.com/ShadowGuard-AI/codeintel-token-entropy-analyzer</pre>
-<p>Repository fact, not a README step: the README gives no later install step, and the code uses only the standard library.</p>
-</section>
-<section class="panel" id="usage"><h2>Usage</h2>
-<pre>python3 main.py FILEPATH [--min_length N] [--regex REGEX] [--entropy_threshold THRESHOLD]</pre>
-<p>A file path must be given. The run does not proceed without one.</p>
-</section>
-<section class="panel" id="params"><h2>Length and Threshold</h2>
+<img class="rule" src="banner.png" alt="Two shallow trays side by side on a workbench, one with glass beads laid in strict colour bands and one with the same beads thoroughly mixed, hands tipping a brass scoop of beads into the mixed tray, plain glass jars behind">
+<section class="panel"><h2>What the analyzer does</h2>
+<p>The tool finds tokens in one file and scores each one for randomness, run as <code>python3 main.py FILEPATH [--min_length N] [--regex REGEX] [--entropy_threshold THRESHOLD]</code>. filepath is a required positional. Tokens are whole pattern matches, taken as whole matches even when a caller's pattern carries capture groups. The default pattern is [A-Za-z0-9_-]+.</p></section><section class="panel" id="how"><h2>How tokens are scored</h2>
+<p>A token is considered when its length is at or above the floor (default 8) and flagged when its Shannon entropy is at or above the threshold (default 3.0). Both tests include their boundary. The tool reports a randomness score; whether a high scoring token is a secret at all is a judgement it never makes.</p></section><section class="panel" id="log"><h2>The log warning</h2>
+<p class="flag">A flagged token prints in full, and every unflagged token with entropy above zero is also written to the log with its value. A saved log from this tool therefore holds the very secrets it went looking for and has to be handled as one.</p></section><section class="panel" id="params"><h2>Parameters</h2>
 <ul>
-<li><code>-h</code>: shows a help message and exits.</li>
-<li><code>filepath</code>: the path to the file to analyse. Required.</li>
-<li><code>--min_length</code>: minimum length of tokens to consider. Default 8.</li>
-<li><code>--regex</code>: defines the tokens. Default pattern: [A-Za-z0-9_\-]+. Be careful with special regex characters.</li>
-<li><code>--entropy_threshold</code>: entropy threshold to flag tokens. Default 3.0.</li>
-</ul>
-<p>Code facts: the length test is at or above the floor, so a token of exactly the minimum length is considered. The entropy test is at or above the threshold, so a token that scores exactly the threshold is flagged. Token values are found with the full match of the pattern, so a pattern with capture groups still yields whole tokens.</p>
-</section>
-<section class="panel"><h2>Verified Counts From the Bank</h2>
-<p>A token of 20 characters with entropy 4.06 is reported as a potential secret. That run exits 0. A token shorter than --min_length is not reported.</p>
-<div class="note"><h3>A Short Token Is Not Reported</h3><p>Length is tested before entropy. A short token is not scored for the flag, however unusual its characters look.</p></div>
-</section>
-<section class="panel"><h2>Exit Rules, From the Code</h2>
-<p>The README does not list these rules; they are marked here as code facts. A missing file path ends the run at exit 1. A file that cannot be read ends the run at exit 1. A minimum length at or below zero ends the run at exit 1. A negative entropy threshold ends the run at exit 1. An invalid regular expression ends the run at exit 1. A completed scan exits 0. A flagged token does not change that exit value.</p>
-</section>
-<section class="panel"><h2>Handle the Output as Secrets</h2>
-<div class="note"><h3>The Token Itself Is Printed</h3><p>A flagged token is printed with its value in full. Tokens below the flag threshold are still written to the log with their values when their entropy is above zero. Output from this tool holds the values it found, and a saved log from a run is to be handled as material that contains secrets. No token value is printed on this page as an example; none is needed to explain the rule.</p></div>
-<p class="flagged">A flagged token line is the one place ladybird red is spent on this page.</p>
-</section>
+<li><code>filepath</code>: path to the file to analyze. Required.</li>
+<li><code>--min_length</code>: minimum length of tokens to consider (default 8).</li>
+<li><code>--regex</code>: pattern that defines tokens (default [A-Za-z0-9_-]+).</li>
+<li><code>--entropy_threshold</code>: entropy threshold to flag tokens (default 3.0).</li>
+</ul></section><section class="panel" id="exits"><h2>Exit codes</h2>
+<p>A missing file, an unreadable file, a minimum length at or below zero, a negative threshold, or an invalid pattern each ends the run at exit 1. A completed scan exits 0, and a flagged token does not change that.</p></section>
+<section class="panel"><h2>Diagrams</h2><p><img class="diag" src="assets/architecture.png" alt="Architecture diagram"></p><p><img class="diag" src="assets/flowchart.png" alt="Flowchart diagram"></p><p><img class="diag" src="assets/product-map.png" alt="Product map diagram"></p></section>
 <section class="panel"><h2>Licence</h2>
-<p>The README states See LICENSE. The LICENSE file in the repository carries the MIT License. Both facts are shown. Neither is altered.</p>
-</section>
+<p>The repository LICENSE file carries the MIT License.</p></section>
 </main>
-<footer><p>The Glow Worm Bank of June. Headings in Beth Ellen, text in Alegreya Sans, both under the SIL Open Font License 1.1.</p></footer>
-
+<footer><p>The Bead Sorting Tray. Headings in Coiny, text in Signika Negative, both under the SIL Open Font License 1.1.</p></footer>
 </body>
 </html>

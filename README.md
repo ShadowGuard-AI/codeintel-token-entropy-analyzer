@@ -1,12 +1,12 @@
-![The bank at dusk with no name in it: one glow worm close in front with her light on, more lights between the stems, hedge at the top, dew beads near each animal, the field sign turned away showing its blank back](intro-banner.png)
+![Glass beads pouring from a brass scoop into a mixed tray close up, red and cobalt and amber beads mid fall over the scattered colours below, an ordered tray soft at the frame edge](intro-banner.png)
 
 # codeintel-Token-Entropy-Analyzer
 
 Title block: the name above is set in Beth Ellen in black spot on a cream plate in field guide entry style, the common name first, with a small glow worm beside this first heading only. Later headings keep the plate style without the animal.
 
-![One female glow worm on one grass stem, segmented and dark with her last segments lit green yellow, one ladybird red touch at the tip of the stem only, the name lettered below in field guide style](logo.png)
+![One shallow oak tray of thoroughly mixed glass beads in red, cobalt, amber and white seen from above, a brass scoop resting at the tray edge](logo.png)
 
-![The lane bank at dusk in June: hawthorn and fern at the top, stones at the bottom, glow worms resting in the grass with steady lights, one larger in the foreground, and the name on the small wooden field sign at the lane edge, with one red dot on its post](banner.png)
+![Two shallow trays side by side on a workbench, one with glass beads laid in strict colour bands and one with the same beads thoroughly mixed, hands tipping a brass scoop of beads into the mixed tray, plain glass jars behind](banner.png)
 
 ![The bank in three bands: hedge and sky still while dusk deepens slowly and holds, glow worm lights coming on one by one and holding steady, a dew bead growing and sliding a short way down its stem at the lane edge](scene.svg)
 
